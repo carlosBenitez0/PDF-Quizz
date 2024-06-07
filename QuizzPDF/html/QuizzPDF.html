@@ -85,10 +85,8 @@
                         <div class="caret"></div>
                     </div>
                     <ul class="menu">
-                        <li class="active">opcion 1</li>
-                        <li>opcion 2</li>
-                        <li>opcion 3</li>
-                        <li>opcion 4</li>
+                        <li class="active">Chat GPT 3.5 Turbo</li>
+                        <li>Chat GPT 4o</li>
                     </ul>
                 </div>
                 <div class="instructions-container">
@@ -109,6 +107,7 @@
                     <button id="btnQuitarPDF">Quitar PDF</button>
                 </div>
             </div>
+            <div id="pdf-text" style="visibility: hidden;"></div>
         </div>
 
         <div class="bottom-container">
@@ -118,7 +117,7 @@
                     <p>Cantidad a generar</p>
                 </div>
                 <div class="bottom-back-container">
-                    <input type="text" placeholder="Número de Preguntas" required>
+                    <input id="question" type="text" placeholder="Número de Preguntas" required>
                 </div>
             </div>
             <div class="backdrop-b-container">
@@ -179,7 +178,7 @@
                     <p style="visibility: hidden;">hidden</p>
                 </div>
                 <div class="bottom-back-container submit">
-                    <input type="submit" value="Generar">
+                    <input type="submit" id="ask-button" value="Generar">
                 </div>
             </div>
         </div>
@@ -243,195 +242,24 @@
         </div>
         
         <div class="deck-container">
-            <div class="column column1">
-                <div class="container">
-                    <div class="card">
-                        <div class="glass1">
-                            <div class="glass glass2">
-                                <div class="glass glass3">
-                                    <div class="top-deck-container">
-                                        <div class="num-container">
-                                            <div class="num-rombo">
-                                                <span class="num">1</span>
-                                            </div>
-                                        </div>
-                                        <div class="tittle-container">
-                                            <p class="title-mid">PDF Quizz</p>
-                                        </div>
-                                        <div class="x-container">
-                                            <i class="fa-solid fa-x"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mid-deck-container">
-                                        <div class="logo-mid-container">
-                                            <img src="../multimedia/logo2.png" alt="">
-                                            <div class="description-popup">
-                                                <p class="description-text">Descripción editable</p>
-                                                <div class="close-instruction">Retire el cursor del cuadro para cerrarlo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="overlay"></div>
-                                    <div class="bottom-deck-container">
-                                        <div class="cuantity">
-                                            <span>20</span>
-                                        </div>
-                                        <div class="backdrop-b-container">
-                                            <div class="bottom-back-container submit button-deck">
-                                                <input type="submit" value="Comenzar">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="card">
-                        <div class="glass1">
-                            <div class="glass glass2">
-                                <div class="glass glass3">
+            <div class="column column1" id="column1">
+            </div>
+            <div class="column column2" id="column2">
 
-                                    <div class="top-deck-container">
-                                        <div class="num-container">
-                                            <div class="num-rombo">
-                                                <span class="num">4</span>
-                                            </div>
-                                        </div>
-                                        <div class="tittle-container">
-                                            <p class="title-mid">PDF Quizz</p>
-                                        </div>
-                                        <div class="x-container">
-                                            <i class="fa-solid fa-x"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mid-deck-container">
-                                        <div class="logo-mid-container">
-                                            <img src="../multimedia/logo2.png" alt="">
-                                            <div class="description-popup">
-                                                <p class="description-text">Descripción editable</p>
-                                                <div class="close-instruction">Retire el cursor del cuadro para cerrarlo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="overlay"></div>
-                                    <div class="bottom-deck-container">
-                                        <div class="cuantity">
-                                            <span>5</span>
-                                        </div>
-                                        <div class="backdrop-b-container">
-                                            <div class="bottom-back-container submit button-deck">
-                                                <input type="submit" value="Comenzar">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
             </div>
-            <div class="column column2">
-                <div class="container">
-                    <div class="card">
-                        <div class="glass1">
-                            <div class="glass glass2">
-                                <div class="glass glass3">
-    
-                                    <div class="top-deck-container">
-                                        <div class="num-container">
-                                            <div class="num-rombo">
-                                                <span class="num">2</span>
-                                            </div>
-                                        </div>
-                                        <div class="tittle-container">
-                                            <p class="title-mid">PDF Quizz</p>
-                                        </div>
-                                        <div class="x-container">
-                                            <i class="fa-solid fa-x"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mid-deck-container">
-                                        <div class="logo-mid-container">
-                                            <img src="../multimedia/logo2.png" alt="">
-                                            <div class="description-popup">
-                                                <p class="description-text">Descripción editable</p>
-                                                <div class="close-instruction">Retire el cursor del cuadro para cerrarlo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="overlay"></div>
-                                    <div class="bottom-deck-container">
-                                        <div class="cuantity">
-                                            <span>10</span>
-                                        </div>
-                                        <div class="backdrop-b-container">
-                                            <div class="bottom-back-container submit button-deck">
-                                                <input type="submit" value="Comenzar">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            <div class="column column3">
-                <div class="container">
-                    <div class="card">
-                        <div class="glass1">
-                            <div class="glass glass2">
-                                <div class="glass glass3">
-    
-                                    <div class="top-deck-container">
-                                        <div class="num-container">
-                                            <div class="num-rombo">
-                                                <span class="num">3</span>
-                                            </div>
-                                        </div>
-                                        <div class="tittle-container">
-                                            <p class="title-mid">PDF Quizz</p>
-                                        </div>
-                                        <div class="x-container">
-                                            <i class="fa-solid fa-x"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mid-deck-container">
-                                        <div class="logo-mid-container">
-                                            <img src="../multimedia/logo2.png" alt="">
-                                            <div class="description-popup">
-                                                <p class="description-text">Descripción editable</p>
-                                                <div class="close-instruction">Retire el cursor del cuadro para cerrarlo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="overlay"></div>
-                                    <div class="bottom-deck-container">
-                                        <div class="cuantity">
-                                            <span>20</span>
-                                        </div>
-                                        <div class="backdrop-b-container">
-                                            <div class="bottom-back-container submit button-deck">
-                                                <input type="submit" value="Comenzar">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
+            <div class="column column3" id="column3">
+
             </div>
 
         </div>
     </div>
 
     <script src="../js/QuizzPDF.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <script src="../js/localStorage.js"></script>
+    <script src="../js/cardsCollections.js"></script>
+    <script src="../js/chatService.js"></script>
+
+
 </body>
 </html>

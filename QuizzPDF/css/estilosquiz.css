@@ -1,0 +1,323 @@
+body{
+    margin: 0;
+    font-size: 16px;
+    background-color: rgb(231, 214, 214);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    font-style: bold;
+    color: crimson;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+.custom-caja{
+    max-width: 700px;
+    background-color:white;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 14px;
+    animation: fadeInRight 1s ease;
+}
+
+#mejor-puntaje-btn{
+    background-image: url("../iconos/klipartz.com.png");
+    background-size: 20%;
+    background-repeat: no-repeat;
+    background-position: 215px;
+    float: right;
+    text-decoration:none;
+    padding-right: 50px;
+    
+}
+#mejor-puntaje-btn b{
+    margin-right: 30px;
+
+}
+
+@keyframes fadeInRight{
+    0%{
+        transform: translate(40px);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(0px); 
+        opacity: 1;
+    }
+}
+
+.caja-Quiz::before,
+.caja-Quiz::after{
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.custom-caja.hide{
+    display: none;
+
+}
+.custom-caja h3{
+    font-size: 22px;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 15px;
+    line-height: 25px;
+
+}
+.custom-caja p{
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 22px;
+    color: black;
+    font-weight: 400;
+}
+
+.custom-caja p span{
+    font-weight: 500;
+
+}
+
+.custom-caja .btn{
+    margin-top: 20px;
+}
+.home-caja div{
+    border: 0px solid black;
+    background-color: rgb(226, 223, 223);
+    border-radius: 14px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    height: 115px;
+
+}
+.home-caja div label{
+    font-size: 24px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+.nombre-usuario{
+    text-align: center;
+
+}
+.home-caja div input{
+    height: 35px;
+    width: 300px;
+    border-radius: 14px;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    border: none;
+    text-align: center;
+}
+
+.home-caja .usuarios .save{
+    transform: translate(380px, -80px);
+}
+
+.btn{
+    padding: 15px 45px;
+    background-color: crimson;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    display: inline-block;
+ 
+}
+
+.btn a{
+    text-decoration: none;
+    color: white;
+}
+
+.btn:hover{
+    box-shadow: 0px 0px 10px crimson,0px 0px 20px crimson,0px 0px 20px crimson;
+    transform: scale(1.03);
+}
+
+.caja-Quiz .pregunta-Numero,
+.caja-Quiz .pregunta-texto,
+.caja-Quiz .contenedor-opcion,
+.caja-Quiz .siguiente-pregunta-btn,
+.caja-Quiz .indicador-respuestas{
+    width: 100%;
+    float: left;
+}
+
+.caja-Quiz .pregunta-numero{
+    font-size: 28px;
+    color: crimson;
+    font-weight: 600;
+    border-bottom: 1px solid rgb(226, 223, 223);
+    padding-bottom: 15px;
+    line-height: 25px;
+
+}
+.caja-Quiz .contador-puntaje{
+    font-size: 30px;
+    background-color: rgb(167, 162, 162);
+    height: 40px;
+    width: 150px;
+    float: right;
+    margin-top: 10px;
+    border-radius: 14px;
+    text-align: center;
+    padding-top: 1px;
+    color: white;
+    
+}
+.caja-Quiz .prefijo-puntaje{
+    font-size: 25px;
+    height: 40px;
+    width: 100px;
+    float: right;
+    margin-top: 10px;
+    border-radius: 14px;
+    text-align: center;
+    padding-top: 6px;
+    color: crimson;
+    margin-right: 15px;
+}
+.caja-Quiz .pregunta-texto{
+    font-size: 22px;
+    color: black;
+    line-height: 28px;
+    font-weight: 400;
+    padding: 20px 0;
+    margin: 0;
+    
+}
+
+.caja-Quiz .contenedor-opcion .opcion{
+    background-color:rgb(226, 223, 223);
+    padding: 13px 15px;
+    font-size: 18px;
+    line-height: 22px;
+    color: black;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+.caja-Quiz .contenedor-opcion .opcion.ya-contestada{
+    pointer-events: none;
+}
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.caja-Quiz .contenedor-opcion .opcion.correcto::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: green;
+    z-index: -1;
+    animation: slideInLeft 0.5s ease forwards;
+
+}
+@keyframes slideInLeft{
+    0%{
+        transform: translate(-100%);
+    }
+    100%{
+        transform: translate(0%);
+    }
+}
+
+
+.caja-Quiz .contenedor-opcion .opcion.incorrecto::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    z-index: -1;
+    animation: slideInLeft 0.5s ease forwards;
+
+}
+.caja-Quiz .contenedor-opcion .opcion.incorrecto{
+    color: white;
+}
+.caja-Quiz .contenedor-opcion .opcion.correcto{
+    color: white;
+}
+
+.caja-Quiz .btn{
+    margin: 15px 0;
+}
+.caja-Quiz .indicador-respuestas{
+    border-top: 1px solid rgb(226, 223, 223);
+}
+.caja-Quiz .indicador-respuestas div{
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    background-color: rgb(226, 223, 223);
+    border-radius: 50%;
+    margin-right: 3px;
+    margin-top: 15px;
+    
+}
+.caja-Quiz .indicador-respuestas div.correcto{
+    background-color: green;
+    background-image: url("../multimedia/feliz.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.caja-Quiz .indicador-respuestas div.incorrecto{
+    background-color: red;
+    background-image: url("../multimedia/triste.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.caja-Resultado.hide{
+    display: none;
+}
+.caja-Resultado{
+    text-align: center;
+}
+.caja-Resultado h1{
+    font-size: 36px;
+    line-height: 42px;
+
+}
+.caja-Resultado table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+}
+.caja-Resultado td{
+    border: 1px solid rgb(226, 223, 223);
+    padding: 8px 15px;
+    font-weight: 500;
+    color: black;
+    width: 50%;
+    text-align: left;
+    font-size: 18px;
+}
+.caja-Resultado .btn{
+    margin-right: 20px;
+}

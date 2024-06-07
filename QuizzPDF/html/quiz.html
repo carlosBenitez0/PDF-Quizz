@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZLAND</title>
+    <link rel="icon" type="img/jpg" href="../multimedia/logo1.png">
+    <link rel="stylesheet" href="../css/estilosquiz.css">
+</head>
+<body>
+
+    <div class="home-caja custom-caja">
+        <h3><b>Instrucciones</b></h3>
+        <p>Número de preguntas: <span class="total-preguntas">20</span> </p>
+        <div class="usuarios">
+            <label for="" class="nombre-usuario"><b>Ingresar usuario</b></label><br>
+            <input type="text" id="nombre-usuario"><br>
+            
+            <button class="save btn" onclick="usuario();Confirm()"><b>Guardar</b></button>
+            
+        </div>
+        <button type="button" class="btn" onclick="comenzarQuiz()"><b>¡Comenzar!</b></button>
+    </div>
+
+    <div class="caja-Quiz custom-caja hide">
+        <div class="pregunta-numero">
+
+        </div>
+        <h1 class="contador-puntaje" id="puntaje"></h1>
+        <p class="prefijo-puntaje">Puntaje</p>
+        <div class="pregunta-texto">
+
+        </div>
+        <div class="contenedor-opcion">
+
+        </div>
+        <div class="siguiente-pregunta-btn">
+            <button type="button" class="btn" onclick="siguiente()"><b>Siguiente</b></button>
+
+        </div>
+        <div class="indicador-respuestas">
+
+        </div>
+    </div>
+
+    <div class="caja-Resultado custom-caja hide">
+        <h1>Quiz Resultado</h1>
+        <table>
+            <tr>
+                <td><b>Usuario</b></td>
+                <td><span><b class="us" id="usar"></b></span></td>
+            </tr>
+            
+            <tr>
+                <td>Total de preguntas</td>
+                <td> <span class="total-preguntas"></span></td>
+            </tr>
+            <tr>
+                <td>Intento</td>
+                <td> <span class="total-intento"></span></td>
+            </tr>
+            <tr>
+                <td>Correctas</td>
+                <td> <span class="total-correctas"></span></td>
+            </tr>
+            <tr>
+                <td>Incorrectas</td>
+                <td> <span class="total-equivocadas"></span></td>
+            </tr>
+            <tr>
+                <td>Porcentage</td>
+                <td> <span class="porcentage"></span></td>
+            </tr>
+            <tr>
+                <td>Tu puntuación final</td>
+                <td> <span class="total-puntaje"></span></td>
+            </tr>
+        </table>
+
+        <button type="button" class="btn" onclick="intentarOtraVezQuiz()"><b>Intentar de nuevo</b></button>
+        <button type="button" class="btn"><a href="../html/decks.html"><b>Quizzes</b></a></button> <br>
+        <button type="button" class="btn"><a href="../html/QuizzPDF.html"><b>Inicio</b></a></button> <br>
+
+
+<script src="../js/app.js"></script>
+<script src="../js/localStorage.js"></script>
+<script src="../js/preguntas.js"></script>
+    
+</body>
+</html>
