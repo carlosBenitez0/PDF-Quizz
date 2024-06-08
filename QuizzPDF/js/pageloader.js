@@ -17,23 +17,29 @@ function startUpdatingPercentage() {
     const intervalId = setInterval(() => {
         if (percentage > 100) {
             clearInterval(intervalId);
+            invisibleLoader();
             return;
         }
 
         updatePercentage(percentage);
-        percentage += 5;
+        percentage += 20;
     }, 1000);
 }
 
-startUpdatingPercentage();
-
 
 //---------------------------------------LOADER--------------------------------------------
-function clickGenerar() {
-        document.getElementById('loader-page').classList.remove("noVisible");
-        document.getElementById('loader-page').classList.add("visible");
-        startUpdatingPercentage();
-    }
+//hacerlo visible
+function visibleLoader() {
+    document.getElementById('loader-page').classList.remove("noVisible");
+    document.getElementById('loader-page').classList.add("visible");
+    startUpdatingPercentage();
+}
 
-document.getElementById('ask-button').addEventListener('click', clickGenerar);
+//hacerlo invisible
+function invisibleLoader() {
+    document.getElementById('loader-page').classList.remove("visible");
+    document.getElementById('loader-page').classList.add("noVisible");
+}
+
+document.getElementById('ask-button').addEventListener('click', visibleLoader);
 

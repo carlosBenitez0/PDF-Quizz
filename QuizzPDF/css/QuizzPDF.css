@@ -880,7 +880,11 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+        
 }
+
+
 
 .top-deck-main{
     width: 100%;
@@ -888,9 +892,11 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 0 40px;
+    z-index: 10;
+    position: relative;
 }
 
-.top-deck-main div{
+.top-deck-main > div{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -928,6 +934,7 @@ body{
     width: 80%;
     justify-content: space-between;
     align-self: center;
+    position: relative;
 }
 
 .column {
@@ -1358,4 +1365,12 @@ body{
 
 .visible{
     display: block;
+}
+
+.p-megas{
+    position: absolute;
+    bottom: 0px;
+    right: 40px;
+    font-size: 18px;
+    
 }

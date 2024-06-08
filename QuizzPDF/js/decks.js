@@ -105,3 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //---------------------------------------DESCRIPTION-DECK--------------------------------------------
+
+//---------------------------------------MEGAS--------------------------------------------
+
+const b_megas = document.querySelector(".b-megas");
+
+function changeValueMegas(megas, maxMegas){
+    b_megas.textContent = megas + "mb/" + maxMegas + "mb"
+}
+
+changeValueMegas(2, 10);
+//---------------------------------------MEGAS--------------------------------------------
