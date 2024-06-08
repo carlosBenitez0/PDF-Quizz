@@ -20,7 +20,6 @@
             
         </div>
     </div> -->
-
     <div class="area">
         <ul class="circles">
             <li></li>
@@ -41,6 +40,24 @@
     <a href="#" class="config">
         <i class="fa-solid fa-gear"></i>
     </a>
+    <div class="loader-page noVisible" id="loader-page">
+        <p class="percentage">0.00%</p>
+        <div class="container-loader">
+            <div class="cubo">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="loading">
+            <div>
+                <h1 class="tittle-loader">Generando quizz</h1>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -107,7 +124,7 @@
                     <button id="btnQuitarPDF">Quitar PDF</button>
                 </div>
             </div>
-            <div id="pdf-text" style="visibility: hidden;"></div>
+            <div id="pdf-text" style="background-color: #000;height: 1px;"></div>
         </div>
 
         <div class="bottom-container">
@@ -155,6 +172,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="backdrop-b-container">
                 <div class="top-back-container">
                     <p>Dificultad</p>
@@ -177,13 +195,14 @@
                 <div class="top-back-container">
                     <p style="visibility: hidden;">hidden</p>
                 </div>
+                
                 <div class="bottom-back-container submit">
                     <input type="submit" id="ask-button" value="Generar">
                 </div>
             </div>
         </div>
-
     </div>
+    
     <div class="noVisible pantalla">
         <div class="black-background-manual">
             <div class="manual-container">
@@ -254,12 +273,13 @@
         </div>
     </div>
 
+    
     <script src="../js/QuizzPDF.js"></script>
+    <script src="../js/pageloader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
     <script src="../js/localStorage.js"></script>
     <script src="../js/cardsCollections.js"></script>
     <script src="../js/chatService.js"></script>
-
-
+    
 </body>
 </html>

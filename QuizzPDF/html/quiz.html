@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUIZLAND</title>
-    <link rel="icon" type="img/jpg" href="../multimedia/logo1.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>PDF Quizz</title>
+    <link rel="icon" type="img/jpg" href="../multimedia/logo2.png">
     <link rel="stylesheet" href="../css/estilosquiz.css">
 </head>
 <body>
-
+<div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
     <div class="home-caja custom-caja">
         <h3><b>Instrucciones</b></h3>
         <p>Número de preguntas: <span class="total-preguntas">20</span> </p>
         <div class="usuarios">
             <label for="" class="nombre-usuario"><b>Ingresar usuario</b></label><br>
-            <input type="text" id="nombre-usuario"><br>
+            <input type="text" id="nombre-usuario" required><br>
             
             <button class="save btn" onclick="usuario();Confirm()"><b>Guardar</b></button>
             

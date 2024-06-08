@@ -76,7 +76,7 @@ function addDeck(columnX, card, cardIndex){
                             </div>
                             <div class="mid-deck-container">
                                 <div class="logo-mid-container">
-                                    <img src="../multimedia/logo2.png" alt="">
+                                    <img src="../multimedia/logo2.png" alt="" >
                                     <div class="description-popup">
                                         <p class="description-text">Descripción editable</p>
                                         <div class="close-instruction">Retire el cursor del cuadro para cerrarlo</div>
@@ -86,11 +86,13 @@ function addDeck(columnX, card, cardIndex){
                             <div class="overlay"></div>
                             <div class="bottom-deck-container">
                                 <div class="cuantity">
-                                    <span>${card.questions.length}</span>
+                                    <span class="preguntas">${card.questions.length}p / </span>
+                                    <span class="nota">8.9</span>
                                 </div>
+                                
                                 <div class="backdrop-b-container">
                                     <div class="bottom-back-container submit button-deck">
-                                        <a onclick="selectedCard(${cardIndex})" href="../html/quiz.html"><input type="submit" value="Comenzar"></a>
+                                        <a onclick="selectedCard(${cardIndex})" href="../html/quiz.html" class="a-quizz">Comenzar</a>
                                     </div>
                                 </div>
                             </div>

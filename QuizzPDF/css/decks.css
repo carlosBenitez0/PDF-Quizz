@@ -539,3 +539,24 @@ body{
     font-weight: bold;
     padding-right: .625rem;
 }
+
+.a-quizz{
+    box-shadow: none;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    outline: none;
+    border: .0625rem solid var(--border-gray300);
+    border-radius: 0.5em;
+    padding: .75rem 2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    border-color: var(--border-gray100);
+    background: linear-gradient(200deg, #4142544d, #4f4f527b);
+}
+
+.nota{
+    color: rgb(0, 255, 0);
+    text-shadow: 0 0 1px white;
+}
