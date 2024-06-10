@@ -150,7 +150,7 @@ function addEventEditionTittle(){
     });
 }
 
-addEventEditionTittle()
+//addEventEditionTittle();
 
 //---------------------------------------DECK--------------------------------------------
 
@@ -227,6 +227,6 @@ function addEventEditionDescription(){
     
 }
 
-addEventEditionDescription()
+//addEventEditionDescription();
 
 //---------------------------------------DESCRIPTION-DECK--------------------------------------------

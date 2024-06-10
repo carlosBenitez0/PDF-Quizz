@@ -3,7 +3,7 @@ const preguntasNumero = document.querySelector(".pregunta-numero");
 const preguntasTexto = document.querySelector(".pregunta-texto");
 const contenedorOpcion = document.querySelector(".contenedor-opcion");
 const contenedorIndicadorRespuestas = document.querySelector(".indicador-respuestas");
-const homeCaja = document.querySelector(".home-caja");
+const HOMECAJA = document.querySelector(".home-caja");
 const quizCaja = document.querySelector(".caja-Quiz");
 const cajaResultado = document.querySelector(".caja-Resultado");
 const puntajeScore = document.querySelector(".contador-puntaje");
@@ -46,7 +46,7 @@ function obtenerNuevaPregunta(){
 
     //colocar opciones
     //obteniendo longitud de opciones
-    console.log(preguntaActual);
+    //console.log(preguntaActual);
     const opcionLongitud = preguntaActual.options.length
     //lanzar las opciones a la matriz opcionesDispo
     for(let i=0; i<opcionLongitud; i++){
@@ -89,7 +89,7 @@ function getResult(element){
         //agregar el indicador de marka correcta
         actualizarIndicadorRespuesta("correcto");
         respuestasCorrectas++;
-        console.log("correctas:" + respuestasCorrectas)
+        //console.log("correctas:" + respuestasCorrectas)
         colocarPuntaje()
     }
     else{
@@ -166,6 +166,7 @@ function quizTerminado(){
 
 //obtener el resultado de quiz
 function quizResultado(){
+    cajaResultado.querySelector(".user").innerHTML = JSON.parse(obtenerUsuario()).userName;
     cajaResultado.querySelector(".total-preguntas").innerHTML = quiz.questions.length;
     cajaResultado.querySelector(".total-intento").innerHTML = intento;
     cajaResultado.querySelector(".total-correctas").innerHTML = respuestasCorrectas;
@@ -174,6 +175,8 @@ function quizResultado(){
     cajaResultado.querySelector(".porcentage").innerHTML = porcentaje.toFixed(2) + "%";
     cajaResultado.querySelector(".total-puntaje").innerHTML = score;
     //.innerHTML = (score + subirPuntaje);
+
+    GuardarPuntaje((respuestasCorrectas/quiz.questions.length)*10);
 
 }
 
@@ -208,9 +211,6 @@ function intentarOtraVezQuiz(){
 //punto de partida
 
 function comenzarQuiz(){
-    console.log(quiz);
-    //ocultar homeCaja
-    homeCaja.classList.add("hide");
     //mostrando quiz caja
     quizCaja.classList.remove("hide");
     //primero se pondrán todas las preguntas en  el array preguntasDisponibles
@@ -220,17 +220,30 @@ function comenzarQuiz(){
     //crear indicador de respuestas
     respuestasIndicador();
 }
+comenzarQuiz();
 
-function usuario(){
-    let usu = document.getElementById('nombre-usuario').value;
-    document.querySelector('.us').innerHTML = usu;
+function GuardarPuntaje(score) {
+    //listado de cards
+    const localStorage = loadCardsStorage('cardsStorage');
+    //encontrando el quizz realzado usando su UUID
+    const cardSelected = localStorage.cards.filter(card => card.id === quiz.id);
+    //se verifica que se ha encontrado un quizz
+    if(cardSelected){
+        localStorage.cards.filter(card => card.id === quiz.id)[0].score = score.toFixed(2);
+    }
+    saveLocalStorage('cardsStorage',localStorage);
+    
 }
-function Confirm() {
-    //Ingresamos un mensaje a mostrar
-    var mensaje = confirm("¡GUARDADO!");
+
+function obtenerUsuario(){
+    //acceder a los datos del usuario para econtrar su nombre
+    return loadLocalStorage('userConfig',`{
+        "userName": null,
+        "api_key": null
+    }`);
 }
 
 
-window.onload = function(){
+/*window.onload = function(){
     homeCaja.querySelector(".total-preguntas").innerHTML = quiz.questions.length;
-}
+}*/

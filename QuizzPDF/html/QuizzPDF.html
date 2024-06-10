@@ -75,7 +75,7 @@
                             <label for="apiKey" class="form-label">API KEY</label>
                             <input type="text" class="form-control" id="apiKey" required>
                         </div>
-                        <button type="submit" class="btn-modal">Aceptar</button>
+                        <button id="btn_save_user_api_key" type="submit" class="btn-modal">Aceptar</button>
                     </form>
                 </div>
             </div>
@@ -102,8 +102,8 @@
                         <div class="caret"></div>
                     </div>
                     <ul class="menu">
-                        <li class="active">Chat GPT 3.5 Turbo</li>
-                        <li>Chat GPT 4o</li>
+                        <li class="active" onclick="getModel(0)">Chat GPT 3.5 Turbo</li>
+                        <li onclick="getModel(1)">Chat GPT 4o</li>
                     </ul>
                 </div>
                 <div class="instructions-container">
@@ -131,10 +131,10 @@
 
             <div class="backdrop-b-container">
                 <div class="top-back-container">
-                    <p>Cantidad a generar</p>
+                    <p>Configuración</p>
                 </div>
                 <div class="bottom-back-container">
-                    <input id="question" type="text" placeholder="Número de Preguntas" required>
+                    <input id="question" type="text" placeholder="Inicio-Final, Cantidad" required>
                 </div>
             </div>
             <!-- <div class="backdrop-b-container">
@@ -165,9 +165,9 @@
                             <div class="caret"></div>
                         </div>
                         <ul class="menu">
-                            <li class="active">Términos y definiciones</li>
-                            <li>Estándar</li>
-                            <li>Ambos</li>
+                            <li class="active" onclick="getStructureQuestion(0)">Términos y definiciones</li>
+                            <li onclick="getStructureQuestion(1)">Estándar</li>
+                            <li onclick="getStructureQuestion(2)">Ambos</li>
                         </ul>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
             
             <div class="backdrop-b-container">
                 <div class="top-back-container">
-                    <p>Dificultad</p>
+                    <p>Creatividad</p>
                 </div>
                 <div class="bottom-back-container">
                     <div class="dropdown">
@@ -184,9 +184,9 @@
                             <div class="caret"></div>
                         </div>
                         <ul class="menu">
-                            <li class="active">Baja</li>
-                            <li>Media</li>
-                            <li>Alta</li>
+                            <li class="active" onclick="getCreativityValue(0)">Baja</li>
+                            <li onclick="getCreativityValue(1)">Media</li>
+                            <li onclick="getCreativityValue(2)">Alta</li>
                         </ul>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                 </div>
                 
                 <div class="bottom-back-container submit">
-                    <input type="submit" id="ask-button" value="Generar">
+                    <input type="submit" id="ask-button" value="Generar"  onclick="askQuestion()">
                 </div>
             </div>
         </div>
@@ -220,24 +220,34 @@
                         <h3 class="secction-tittle">Variables necesarias para la generación del quizz</h3> 
                         <div class="secction-list">
                             <p class="list-item"><span>Version de GPT:</span> Esta variable indica la versión del modelo de GPT que se está utilizando.</p>
-                            <p class="list-item"><span>Cantidad a generar:</span> Define la cantidad de preguntas que se generarán a partir del PDF cargado.</p>
-                            <p class="list-item"><span>Orden:</span> Determina el orden en el que se presentarán las preguntas generadas.</p>
+                            <p class="list-item"><span>Configuración:</span> Define un rango que representa las páginas que se tomarán en cuenta del PDF, y también, la cantidad de preguntas que se generarán a partir del PDF cargado.</p>
+                            <ul class="list-dropdown-container">
+                                <li class="list-item-dropdown">Se debe respetar estrictamente el siguiente formato:<strong>inicio-final,cantidad</strong> .</li>
+                                <li class="list-item-dropdown"><strong>Inicio:</strong> Indica la primera página que se tomará del documento PDF. Es el inicio del rango.</li>
+                                <li class="list-item-dropdown"><strong>Final:</strong> Indica la última página que se tomará del documento PDF. Es el final del rango.</li>
+                                <li class="list-item-dropdown"><strong>Cantidad:</strong> Cantidad total de preguntas a generar de todo el documento pdf cargado.</li>
+                            </ul>
+                            <!--<p class="list-item"><span>Orden:</span> Determina el orden en el que se presentarán las preguntas generadas.</p>
                             <ul class="list-dropdown-container">
                                 <li class="list-item-dropdown"><strong>Ordenado:</strong> Las preguntas se presentan en el orden en que aparecen en el PDF.</li>
                                 <li class="list-item-dropdown"><strong>Aleatorio:</strong> Las preguntas se presentan en un orden aleatorio.</li>
-                            </ul>
+                            </ul>-->
                             <p class="list-item"><span>Estructura:</span> Define la estructura o el formato del cuestionario generado.</p>
                             <ul class="list-dropdown-container">
                                 <li class="list-item-dropdown"><strong>Términos y Definiciones:</strong> El cuestionario contiene pares de términos y sus definiciones.</li>
                                 <li class="list-item-dropdown"><strong>Estándar:</strong> El cuestionario sigue un formato estándar predefinido.</li>
                                 <li class="list-item-dropdown"><strong>Ambas:</strong> El cuestionario incluye tanto términos y definiciones como el formato estándar.</li>
                             </ul>
-                            <p class="list-item"><span>Dificultad:</span> Establece el nivel de dificultad de las preguntas generadas.</p>
+                            <p class="list-item"><span>Creatividad:</span> Establece el nivel de creatividad que se le permite al modelo a la hora de generar sus resultados. Mientras más baja sea, más apegado al texto serán las preguntas y sus posibles respuestas.</p>
                             <ul class="list-dropdown-container">
-                                <li class="list-item-dropdown"><strong>Baja:</strong> Las preguntas son de un nivel de dificultad básico.</li>
-                                <li class="list-item-dropdown"><strong>Media:</strong> Las preguntas tienen un nivel de dificultad intermedio.</li>
-                                <li class="list-item-dropdown"><strong>Alta:</strong> Las preguntas son de un nivel de dificultad avanzado.</li>
+                                <li class="list-item-dropdown"><strong>Baja:</strong> La creatividad del modelo es baja.</li>
+                                <li class="list-item-dropdown"><strong>Media:</strong> Las creatividad del modelo es intermedia.</li>
+                                <li class="list-item-dropdown"><strong>Alta:</strong> La creatividad del modelo es alta.</li>
                             </ul>
+                            <p class="list-item"><span>Importante:</span> No hay un límite para el tamaño del PDF: se crean bloques de texto de una cantidad similar de palabras (menores a 1024 palabras). 
+                                Pero mientras más grande sea, más tiempo se tardará en generar el quizz debido a que la cantidad de bloques de texto generados desde el documento es mayor. 
+                                Para cada bloque de texto se realiza una petición de determinada cantidad de preguntas. Cuando se terminan de trabajar todos los bloques de texto se muestra el resultado en la 
+                                parte inferior de la página principal.</p>
                         </div>
                     </div>
                 </section>
@@ -253,7 +263,7 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </div> -->
                 <div>
-                    <a class="see-quizz" href="./decks.html">Ver todos los quizz</a>
+                    <a class="see-quizz" href="./decks.html" onclick="()=> isTodayCard = false">Ver todos los quizz</a>
                     <i class="fa-solid fa-arrow-right"></i>
                     <p class="p-megas">Almacenamiento: <b class="b-megas"></b></p> 
                 </div>
@@ -274,14 +284,13 @@
         </div>
     </div>
 
-    
     <script src="../js/QuizzPDF.js"></script>
     <script src="../js/pageloader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
     <script src="../js/localStorage.js"></script>
     <script src="../js/cardsCollections.js"></script>
     <script src="../js/chatService.js"></script>
-    <script src="../js/decks.js"></script>
+    <script src="../js/userConfig.js"></script>
     
 </body>
 </html>

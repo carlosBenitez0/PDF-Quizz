@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function () {
     function makeEditable(element) {
         element.addEventListener('click', function () {
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.title-mid').forEach(makeEditable);
 });
-
+*/
 
 //---------------------------------------DECK--------------------------------------------
 
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //---------------------------------------DESCRIPTION-DECK--------------------------------------------
 
-
+/*
 document.addEventListener('DOMContentLoaded', function () {
     function makeDescriptionEditable(popup) {
         const descriptionText = popup.querySelector('.description-text');
@@ -101,9 +102,13 @@ document.addEventListener('DOMContentLoaded', function () {
         makeDescriptionEditable(popups[index]);
     });
 });
-
-
-
+*/
+//verifica si se esta usando el script para mostrar todos los quizzes o solo los de hoy
+(()=>{
+    if(!isTodayCard){
+        LoadCardsView(loadCardsStorage('cardsStorage'), false);
+    }
+})();
 //---------------------------------------DESCRIPTION-DECK--------------------------------------------
 
 //---------------------------------------MEGAS--------------------------------------------
