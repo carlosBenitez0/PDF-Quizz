@@ -172,8 +172,8 @@ async function extractTextFromPDF() {
         alert('Please select a PDF file first.');
         return;
     }
-    if (!questionOptions) {
-        alert('Porfavor, defina el intervalo de páginas a utilizar y las preguntas máximas por página: [incio intervalo]-[final intervalo],[cantidad maxima preguntas]. No dejar espacios.');
+    if (!options) {
+        alert('Porfavor, defina el intervalo de páginas a utilizar y la cantidad total de preguntas a generar: [incio intervalo]-[final intervalo],[cantidad maxima preguntas]. NO DEJAR ESPACIOS.');
         return;
     }
 
@@ -221,18 +221,23 @@ function cleanJsonResponse(response) {
 }
 
 async function askQuestion() {
-    //extrayendo el texto del pdf y creando bloques de texto
-    await extractTextFromPDF();
+    if (JSON.parse(userConfig).api_key === null) {
+        alert("Acceda a la configuración en la parte superior derecha e introduzca su usuario y API KEY, para usar PDF Quizz correctamente.")
+    } else {
+        //extrayendo el texto del pdf y creando bloques de texto
+        await extractTextFromPDF();
+        if (documentText.length > 0) {
+            //iniciar animación de generando quizz
+            visibleLoader();
+            //actualizando el porcentaje de progreso
+            updatePercentage(0.00);
 
-    //iniciar animación de generando quizz
-    visibleLoader();
-    //actualizando el porcentaje de progreso
-    updatePercentage(0.00);
-
-    //listado de las preguntas generadas
-    const generatedQuestions = await generateQuestions(documentText.length,questionsAmount);
-    await invisibleLoader();
-    await saveNewCard(generatedQuestions);
+            //listado de las preguntas generadas
+            const generatedQuestions = await generateQuestions(documentText.length, questionsAmount);
+            await invisibleLoader();
+            if (generatedQuestions.length > 0) await saveNewCard(generatedQuestions);
+        }
+    }
 }
 
 async function generateQuestions(textBlocksLength, questionsAmount){
@@ -257,14 +262,15 @@ async function generateQuestions(textBlocksLength, questionsAmount){
         }
         
         //se solicita al chat que genere las preguntas
-        const questions = await getResponse(signal, controller, apiKey, i, textBlocksLength, documentText[i], maxQuestionPerBlock, model, questionStructure, creativity);
+        const responseResult = await getResponse(signal, controller, apiKey, i, textBlocksLength, documentText[i], maxQuestionPerBlock, model, questionStructure, creativity);
 
-        console.log("resultado: ", maxQuestionPerBlock, questions);
-        if (questions) {
+        if (responseResult.execute) {
             //se agregan al listado de preguntas generadas
-            questions.forEach(question => {
+            responseResult.questions.forEach(question => {
                 generatedQuestions.push(question);
             });
+        } else {
+            return generatedQuestions;
         }
     }
 
@@ -311,24 +317,45 @@ async function getResponse(signal, controller, apiKey, index, blocks, textBlock,
         }, 5 * 60000); // 5 minutos de tiempo de espera
     });
 
-    try {
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
-        const responseData = await response.json();
+    let responseData = null;
 
-        console.log("Respuesta: ", responseData);
+    /*const response = await Promise.race([fetchPromise, timeoutPromise]);
+    responseData = await response.json();
 
+    let segment = responseData.choices[0].message.content;
+    segment = cleanJsonResponse(segment);
+    const questions = JSON.parse(segment).questions;
+
+    console.log(documentPercent.toFixed(2) + "%", (index + 1), "/", documentText.length);
+    updatePercentage(documentPercent);
+    return (questions,true);*/
+    let resultResponse = {questions:[], execute:false};
+    await Promise.race([fetchPromise, timeoutPromise]).then(async (result) => {
+        responseData = await result.json();
         let segment = responseData.choices[0].message.content;
         segment = cleanJsonResponse(segment);
         const questions = JSON.parse(segment).questions;
-
         console.log(documentPercent.toFixed(2) + "%", (index + 1), "/", documentText.length);
         updatePercentage(documentPercent);
-        return questions;
+        resultResponse = {questions:questions, execute:true};
+    }).catch(async (e) => {
+        if (responseData) {
+            try {
+                alert(responseData.error.message);
+                await invisibleLoader();
+                resultResponse = {questions:[], execute:false};
+            } catch (e) {
+                console.error("Mal formato de respuesta. Iniciando nueva petición.", e);
+                await getResponse(signal, controller, apiKey, index, blocks, textBlock, maxQuestionPerBlock, model, questionStructure, creativity);
+            }
+        } else {
+            alert("Error de conexión. Es necesario tener una conexión estable a internet para usar el servicio.");
+            await invisibleLoader();
+            resultResponse = {questions:[], execute:false};
+        }
+    });
+    return resultResponse;
 
-    } catch (error) {
-        console.error("Mal formato de respuesta. Iniciando nueva petición.", error);
-        await getResponse(signal, controller,apiKey, index, blocks, textBlock, maxQuestionPerBlock, model, questionStructure, creativity);
-    }
 }
 
 async function saveNewCard(generatedQuestions){

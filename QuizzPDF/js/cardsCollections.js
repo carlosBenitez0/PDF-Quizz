@@ -20,6 +20,7 @@ function deleteCard(index){
     }else{
         LoadCardsView(loadCardsStorage('cardsStorage'), false);
     }
+    changeValueMegas(((globalThis.localStorage.getItem('cardsStorage').length) / (1024 * 1024)).toFixed(2),5);
 }
 
 function updateCardTitle(index, newTitle){
@@ -31,11 +32,14 @@ function updateCardTitle(index, newTitle){
     }else{
         LoadCardsView(loadCardsStorage('cardsStorage'), false);
     }
+    changeValueMegas(((globalThis.localStorage.getItem('cardsStorage').length) / (1024 * 1024)).toFixed(2),5);
 }
 
 function updateCardDescription(index, newDescription){
     const localStorage = loadCardsStorage('cardsStorage');
-    localStorage.cards[parseInt(index)].description = newDescription;
+    const card = localStorage.cards[parseInt(index)];
+    card.description = newDescription;
+    localStorage.cards[parseInt(index)] = card;
     saveLocalStorage('cardsStorage',localStorage);
     if(isTodayCard){
         LoadCardsView(loadCardsStorage('cardsStorage').cards.filter(card => card.creation_date === getCurrentDate()), true);
@@ -80,6 +84,13 @@ function LoadCardsView(localStorage, lastCards){
               break;
           }   
     });
+
+    cards.forEach(card => {
+        makeTitleAndDescriptionEditable(cards.indexOf(card));
+    });
+    
+    const storage = loadCardsStorage('cardsStorage');
+    changeValueMegas((JSON.stringify(storage).length/ (1024 * 1024)).toFixed(2),5);
 }
 
 //LoadCardsView(loadCardsStorage('cardsStorage'), false);
@@ -138,30 +149,30 @@ function addDeck(columnX, card, cardIndex){
         </div>
         `;
 
-        const lastCardElement = columnX.querySelector(`#card_${cardIndex}`);
-        const lastCardName = lastCardElement.getElementsByClassName("title-mid");
-
-        //haciando que cada vez que se le de click en el nombre del card este permita editar el título
-        lastCardName[0].addEventListener('click', ()=> {
-            //console.log(lastCardName[0]);
-            makeEditable(lastCardName[0], cardIndex);
-        });
-
-        const popupElement = lastCardElement.getElementsByClassName("description-popup");
-        makeDescriptionEditable(popupElement[0], cardIndex);
-
-        const overlayElement = lastCardElement.getElementsByClassName('overlay');
-        const midDeckContainerElement = lastCardElement.getElementsByClassName('mid-deck-container');
-
-        midDeckContainerElement[0].addEventListener('mouseenter', function () {
-            showPopup(popupElement[0], overlayElement[0]);   
-        });
-        midDeckContainerElement[0].addEventListener('mouseleave', function () {
-            hidePopup(popupElement[0], overlayElement[0]);
-        });
-
-        makeDescriptionEditable(popupElement[0], cardIndex);
+        //makeDescriptionEditable(popupElement[0], cardIndex);
         
+}
+
+function makeTitleAndDescriptionEditable(cardIndex){
+    const lastCardElement = document.querySelector(`#card_${cardIndex}`);
+    const lastCardName = lastCardElement.getElementsByClassName('title-mid');
+
+    //haciando que cada vez que se le de click en el nombre del card este permita editar el título
+    makeEditable(lastCardName[0], cardIndex);
+
+    //console.log(lastCardName);
+    const popupElement = lastCardElement.getElementsByClassName('description-popup');
+    makeDescriptionEditable(popupElement[0], cardIndex);
+
+    const overlayElement = lastCardElement.getElementsByClassName('overlay');
+    const midDeckContainerElement = lastCardElement.getElementsByClassName('mid-deck-container');
+
+    midDeckContainerElement[0].addEventListener('mouseenter', function () {
+        showPopup(popupElement[0], overlayElement[0]);   
+    });
+    midDeckContainerElement[0].addEventListener('mouseleave', function () {
+        hidePopup(popupElement[0], overlayElement[0]);
+    });
 }
 
 function makeEditable(element, cardIndex) {
@@ -170,14 +181,14 @@ function makeEditable(element, cardIndex) {
         const input = document.createElement('input');
         input.type = 'text';
         input.value = p.textContent;
-        input.className = 'title-mid';
+        input.className = `title-mid`;
         p.replaceWith(input);
         input.focus();
 
         input.addEventListener('blur', function () {
             const newP = document.createElement('p');
             newP.textContent = this.value;
-            newP.className = 'title-mid';
+            newP.className = `title-mid`;
             makeEditable(newP);
             this.replaceWith(newP);
         });
@@ -229,4 +240,10 @@ function showPopup(popup, overlay) {
 function hidePopup(popup, overlay) {
     popup.style.display = 'none';
     overlay.style.display = 'none';
+}
+
+const b_megas = document.querySelector(".b-megas");
+
+function changeValueMegas(megas, maxMegas){
+    b_megas.textContent = megas + "mb/" + maxMegas + "mb"
 }

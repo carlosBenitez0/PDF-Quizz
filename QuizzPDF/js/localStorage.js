@@ -21,7 +21,12 @@ function modifyCardValue(id, newValue, myObjectArray) {
 }
 
 function saveLocalStorage(nameStorage, valueText) {
-    localStorage.setItem(nameStorage, JSON.stringify(valueText));
+    try{
+        localStorage.setItem(nameStorage, JSON.stringify(valueText));
+    }catch(e){
+        alert("Error al guardar. Si ha superado los 5MB de espacio utilizado. Elimine quizzes para liberar espacio");
+        console.error(e);
+    }
 }
 
 function loadLocalStorage(nameStorage, defaultValues){

@@ -109,15 +109,16 @@ document.addEventListener('DOMContentLoaded', function () {
         LoadCardsView(loadCardsStorage('cardsStorage'), false);
     }
 })();
+//LoadCardsView(loadCardsStorage('cardsStorage'), false);
 //---------------------------------------DESCRIPTION-DECK--------------------------------------------
 
 //---------------------------------------MEGAS--------------------------------------------
 
-const b_megas = document.querySelector(".b-megas");
 
 function changeValueMegas(megas, maxMegas){
-    b_megas.textContent = megas + "mb/" + maxMegas + "mb"
+    const b_megass = document.querySelector(".b-megas");
+    b_megass.textContent = megas + "mb/" + maxMegas + "mb"
 }
 
-changeValueMegas(2, 10);
+//changeValueMegas(2, 10);
 //---------------------------------------MEGAS--------------------------------------------
